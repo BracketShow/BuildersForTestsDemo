@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using FluentAssertions;
 using Xunit;
 
@@ -22,6 +23,33 @@ namespace Banking.Tests
 
             // Assert
             action.Should().Throw<InsufficientFundException>();
+        }
+
+        [Fact]
+        public void Creating_default_account_should_work()
+        {
+            // Act
+            var account = DefaultAccount(1).Build();
+
+            // Assert
+            account.Number.Should().Be(1);
+            account.Balance.Should().Be(0);
+            account.Type.Should().Be(AccountType.Checking);
+        }
+
+        [Fact]
+        public void Transfer_amount_should_update_both_account()
+        {
+            // Arrange 
+            var account1 = DefaultAccount(1).With(a => a.Balance = 1000).Build();
+            var account2 = DefaultAccount(2).Build();
+
+            // Act
+            account1.Transfer(200).To(account2);
+
+            // Assert
+            account1.Balance.Should().Be(800);
+            account2.Balance.Should().Be(200);
         }
     }
 }

@@ -6,7 +6,10 @@ namespace Banking.Tests
     {
         private readonly TItem _item;
 
-        protected BuilderBase(TItem item) => _item = item;
+        protected BuilderBase(TItem item)
+        {
+            _item = item;
+        }
 
         protected BuilderBase<TItem> With(Action<TItem> action)
         {
@@ -14,6 +17,9 @@ namespace Banking.Tests
             return this;
         }
 
-        public TItem Build() => _item;
+        public TItem Build()
+        {
+            return _item;
+        }
     }
 }
