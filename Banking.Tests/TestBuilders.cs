@@ -4,22 +4,20 @@ namespace Banking.Tests
 {
     public class TestBuilders
     {
-        protected class AccountBuilder
+        protected class AccountBuilder : BuilderBase<Account>
         {
-            private readonly Account _account;
-
-            public AccountBuilder(Account account) => _account = account;
-
-            public AccountBuilder With(Action<Account> action)
+            public AccountBuilder(Func<Account> item) : base(item)
             {
-                action(_account);
-                return this;
             }
 
-            public Account Build() => _account;
+            public AccountBuilder WithBalance(decimal balance)
+            {
+                With(a => a.Balance = balance);
+                return this;
+            }
         }
 
-        protected AccountBuilder DefaultAccount(int number) => new AccountBuilder(new Account()
+        protected AccountBuilder DefaultAccount(int number) => new AccountBuilder(() => new Account()
         {
             Number = number
         });

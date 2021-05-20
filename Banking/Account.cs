@@ -31,7 +31,7 @@
         {
             private readonly decimal _amount;
 
-            public Fund(decimal amount)
+            internal Fund(decimal amount)
             {
                 _amount = amount;
             }

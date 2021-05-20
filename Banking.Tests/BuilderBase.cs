@@ -1,25 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Banking.Tests
 {
-    public class BuilderBase<TItem>
+    public class BuilderBase<TItem> where TItem : new()
     {
-        private readonly TItem _item;
+        protected readonly Func<TItem> _item;
+        private List<Action<TItem>> _actions = new List<Action<TItem>>();
 
-        protected BuilderBase(TItem item)
+        protected BuilderBase(Func<TItem> item)
         {
             _item = item;
         }
 
-        protected BuilderBase<TItem> With(Action<TItem> action)
+        public BuilderBase<TItem> With(Action<TItem> action)
         {
-            action(_item);
+            _actions.Add(action);
             return this;
         }
 
         public TItem Build()
         {
-            return _item;
+            var item = _item();
+            foreach (var action in _actions)
+            {
+                action(item);
+            }
+            return item;
         }
     }
 }

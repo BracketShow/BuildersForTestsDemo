@@ -14,8 +14,8 @@ namespace Banking.Tests
             var account = new Account()
             {
                 Number = 1,
-                Type = AccountType.Checking,
-                Balance = 1000
+                Balance = 1000,
+                Type = AccountType.Checking
             };
 
             // Act
