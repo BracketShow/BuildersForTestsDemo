@@ -8,15 +8,10 @@ namespace Banking.Tests
     public class BankingTests : TestBuilders
     {
         [Fact]
-        public void Withdraw_Amount_Grater_Than_Balance_Should_Throw_InsufficientFundException()
+        public void Withdraw_Amount_Greater_Than_Balance_Should_Throw_InsufficientFundException()
         {
             // Arrange
-            var account = new Account()
-            {
-                Number = 1,
-                Balance = 1000,
-                Type = AccountType.Checking
-            };
+            var account = DefaultAccount(1).WithBalance(1000).Build();
 
             // Act
             var action = account.Invoking(a => a.Withdraw(2000));
@@ -41,8 +36,11 @@ namespace Banking.Tests
         public void Transfer_amount_should_update_both_account()
         {
             // Arrange 
-            var account1 = DefaultAccount(1).With(a => a.Balance = 1000).Build();
-            var account2 = DefaultAccount(2).Build();
+            var accountBuilder = DefaultAccount(1);
+            var account1 = accountBuilder.With(a => a.Balance = 1000).Build();
+            var account2 = accountBuilder
+                .With(a => a.Number = 2)
+                .Build();
 
             // Act
             account1.Transfer(200).To(account2);

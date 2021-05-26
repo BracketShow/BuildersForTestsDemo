@@ -26,6 +26,7 @@ namespace Banking.Tests
             {
                 action(item);
             }
+            _actions.Clear();
             return item;
         }
     }
