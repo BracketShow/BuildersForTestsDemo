@@ -5,13 +5,14 @@ using Xunit;
 
 namespace Banking.Tests
 {
-    public class BankingTests : TestBuilders
+    public class BankingTests
     {
         [Fact]
         public void Withdraw_Amount_Greater_Than_Balance_Should_Throw_InsufficientFundException()
         {
             // Arrange
-            var account = DefaultAccount(1).WithBalance(1000).Build();
+            var account = new Account(1);
+            account.Deposit(1000);
 
             // Act
             var action = account.Invoking(a => a.Withdraw(2000));
@@ -24,7 +25,7 @@ namespace Banking.Tests
         public void Creating_default_account_should_work()
         {
             // Act
-            var account = DefaultAccount(1).Build();
+            Account account = new AccountBuilder(1);
 
             // Assert
             account.Number.Should().Be(1);
@@ -36,18 +37,17 @@ namespace Banking.Tests
         public void Transfer_amount_should_update_both_account()
         {
             // Arrange 
-            var accountBuilder = DefaultAccount(1);
-            var account1 = accountBuilder.With(a => a.Balance = 1000).Build();
-            var account2 = accountBuilder
-                .With(a => a.Number = 2)
-                .Build();
+            Account account1 = new AccountBuilder(1).With(a => a.Deposit(1000));
+            Account account2 = new AccountBuilder();
 
             // Act
             account1.Transfer(200).To(account2);
 
             // Assert
             account1.Balance.Should().Be(800);
+            account1.Number.Should().Be(1);
             account2.Balance.Should().Be(200);
+            account2.Number.Should().Be(2);
         }
     }
 }

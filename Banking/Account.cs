@@ -4,17 +4,32 @@ namespace Banking
 {
     public class Account
     {
-        public decimal Balance { get; set; }
+        private decimal _balance;
+        private string _description;
 
-        public int Number { get; set; }
+        public Account(int number, AccountType type = AccountType.Checking)
+        {
+            Number = number;
+            Type = type;
+        }
 
-        public AccountType Type { get; set; }
+        public decimal Balance => _balance;
+
+        public string Description
+        {
+            get => _description;
+            set => _description = value;
+        }
+
+        public int Number { get; }
+
+        public AccountType Type { get; }
 
         public void Withdraw(decimal amount)
         {
-            if (Balance > amount)
+            if (_balance > amount)
             {
-                Balance -= amount;
+                _balance -= amount;
                 Console.WriteLine(Resource.Account_Withdraw_Withdraw_of__0__from_account__1_, amount, Number);
             }
             else
@@ -23,13 +38,13 @@ namespace Banking
 
         public void Deposit(decimal amount)
         {
-            Balance += amount;
+            _balance += amount;
             Console.WriteLine(Resource.Account_Deposit_Deposit_of__0__in_account__1_, amount, Number);
         }
 
         public Fund Transfer(decimal amount)
         {
-            Balance -= amount;
+            _balance -= amount;
             return new Fund(amount);
         }
 

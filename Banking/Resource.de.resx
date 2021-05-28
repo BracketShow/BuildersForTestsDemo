@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InsufficientFundException" xml:space="preserve">
-    <value>Fonds insuffisant pour terminer l’opération</value>
+    <value>InsufficientFundException</value>
   </data>
   <data name="Account_Deposit_Deposit_of__0__in_account__1_" xml:space="preserve">
-    <value>Depot {0} dans le compte {1}</value>
+    <value>Einzahlung von {0} auf {1}</value>
   </data>
   <data name="Account_Withdraw_Withdraw_of__0__from_account__1_" xml:space="preserve">
-    <value>Retrait de {0} du compte {1}</value>
+    <value>Abrechnung von {0} von der Konto{1}</value>
   </data>
 </root>
