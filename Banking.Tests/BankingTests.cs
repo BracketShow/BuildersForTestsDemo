@@ -15,7 +15,7 @@ namespace Banking.Tests
             account.Deposit(1000);
 
             // Act
-            var action = account.Invoking(a => a.Withdraw(2000));
+            Action action = account.Invoking(a => a.Withdraw(2000));
 
             // Assert
             action.Should().Throw<InsufficientFundException>();
